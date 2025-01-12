@@ -1,8 +1,8 @@
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: local-storage
-provisioner: kubernetes.io/no-provisioner
+  name: csi-gce-pd
+provisioner: pd.csi.storage.gke.io
 volumeBindingMode: WaitForFirstConsumer
 
 ---
@@ -11,26 +11,17 @@ kind: PersistentVolume
 metadata:
   name: jenkins-pv-volume
   labels:
-    type: local
+    type: gce-pd
 spec:
-  storageClassName: local-storage
-  claimRef:
-    name: jenkins-pv-claim
-    namespace: devops-tools
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  local:
-    path: /mnt
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - worker-node01
+  gcePersistentDisk:
+    pdName: jenkins-disk
+    fsType: ext4
+  storageClassName: standard
+
 
 ---
 apiVersion: v1
@@ -39,7 +30,7 @@ metadata:
   name: jenkins-pv-claim
   namespace: devops-tools
 spec:
-  storageClassName: local-storage
+  storageClassName: csi-gce-pd
   accessModes:
     - ReadWriteOnce
   resources:
