@@ -9,7 +9,7 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: jenkins-pv-volume
+  name: pvc-7cb758ea-d185-4008-ad75-0833a7a37276
   labels:
     type: gce-pd
 spec:
