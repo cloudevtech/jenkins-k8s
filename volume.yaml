@@ -6,21 +6,21 @@ provisioner: pd.csi.storage.gke.io
 volumeBindingMode: WaitForFirstConsumer
 
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pvc-7cb758ea-d185-4008-ad75-0833a7a37276
-  labels:
-    type: gce-pd
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  gcePersistentDisk:
-    pdName: jenkins-disk
-    fsType: ext4
-  storageClassName: standard
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: pvc-7cb758ea-d185-4008-ad75-0833a7a37276
+#   labels:
+#     type: gce-pd
+# spec:
+#   capacity:
+#     storage: 10Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   gcePersistentDisk:
+#     pdName: jenkins-disk
+#     fsType: ext4
+#   storageClassName: standard
 
 
 ---
